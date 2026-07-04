@@ -51,7 +51,7 @@ svg {
   height: 100vh;
   height: 100dvh;
   display: grid;
-  grid-template-columns: clamp(220px, 18vw, 340px) minmax(0, 1fr) clamp(320px, 30vw, 500px);
+  grid-template-columns: clamp(220px, 18vw, 340px) minmax(0, 1fr) clamp(560px, 43vw, 680px);
   overflow: hidden;
   background: var(--bg);
   border: 1px solid var(--line);
