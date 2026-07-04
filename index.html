@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Crypto Quant Workspace</title>
+    <link rel="stylesheet" href="./crypto-quant-workspace.css" />
+  </head>
+  <body>
+    <main class="shell" aria-label="Crypto quant strategy workspace">
+      <aside class="workspace-panel">
+        <header class="panel-header">
+          <span>Workspace</span>
+          <button class="icon-button" aria-label="New strategy file">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14" /></svg>
+          </button>
+        </header>
+
+        <nav class="file-tree" aria-label="Project files">
+          <button class="file active">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h10l6 6v10H4z" /><path d="M14 4v6h6" /></svg>
+            <span>README.md</span>
+          </button>
+          <button class="file">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h12v18H6z" /><path d="M9 8h6M9 12h6M9 16h3" /></svg>
+            <span>btc_breakout.py</span>
+          </button>
+          <button class="file">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19l5-7 4 4 3-9 4 12" /></svg>
+            <span>challenge_rules.json</span>
+          </button>
+          <button class="file">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5h14v14H5z" /><path d="M8 9h8M8 13h5" /></svg>
+            <span>exchange_feeds.yaml</span>
+          </button>
+        </nav>
+
+        <section class="mini-section">
+          <div class="section-title">Markets</div>
+          <button class="market-row selected"><span>BTC-PERP</span><strong>+1.84%</strong></button>
+          <button class="market-row"><span>ETH-PERP</span><strong>-0.42%</strong></button>
+          <button class="market-row"><span>SOL-PERP</span><strong>+3.10%</strong></button>
+        </section>
+      </aside>
+
+      <section class="editor-panel">
+        <header class="editor-topbar">
+          <div class="project-title">
+            <span class="project-mark" aria-hidden="true"></span>
+            <div>
+              <strong>BTC momentum lab</strong>
+              <small>Crypto strategies - prop challenge prep</small>
+            </div>
+          </div>
+          <div class="top-actions">
+            <button class="toolbar-button">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14" /><path d="M12 5v14" /></svg>
+              <span>Strategy</span>
+            </button>
+            <button class="toolbar-button primary">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z" /></svg>
+              <span>Run</span>
+            </button>
+          </div>
+        </header>
+
+        <div class="editor-body">
+          <section class="chart-stage" aria-label="Strategy performance preview">
+            <div class="chart-head">
+              <div>
+                <span class="eyebrow">Strategy canvas</span>
+                <h1>BTC breakout verifier</h1>
+              </div>
+              <div class="pair-pill">Binance - Bybit - Coinbase</div>
+            </div>
+
+            <div class="market-visual">
+              <svg class="grid-chart" viewBox="0 0 760 360" role="img" aria-label="BTC price, equity curve, and drawdown preview">
+                <defs>
+                  <linearGradient id="lineFill" x1="0" x2="0" y1="0" y2="1">
+                    <stop offset="0%" stop-color="#30d5a7" stop-opacity=".25" />
+                    <stop offset="100%" stop-color="#30d5a7" stop-opacity="0" />
+                  </linearGradient>
+                </defs>
+                <g class="grid-lines">
+                  <path d="M20 50H740M20 110H740M20 170H740M20 230H740M20 290H740" />
+                  <path d="M90 28V325M210 28V325M330 28V325M450 28V325M570 28V325M690 28V325" />
+                </g>
+                <path class="area" d="M28 258 C80 250 96 220 140 226 C185 232 194 174 245 178 C292 181 312 132 354 144 C401 158 416 97 466 108 C510 118 536 75 584 82 C632 90 655 61 730 54 L730 325 L28 325 Z" />
+                <path class="price-line" d="M28 258 C80 250 96 220 140 226 C185 232 194 174 245 178 C292 181 312 132 354 144 C401 158 416 97 466 108 C510 118 536 75 584 82 C632 90 655 61 730 54" />
+                <path class="equity-line" d="M28 292 C105 287 158 286 214 253 C274 219 334 232 381 198 C424 168 455 177 505 139 C567 91 624 105 730 72" />
+                <path class="risk-line" d="M28 310 C86 294 140 322 202 304 C257 288 286 318 348 301 C411 285 460 306 514 283 C585 255 642 291 730 266" />
+                <g class="trade-markers">
+                  <circle cx="245" cy="178" r="5" />
+                  <circle cx="466" cy="108" r="5" />
+                  <circle cx="584" cy="82" r="5" />
+                </g>
+              </svg>
+              <div class="chart-metrics">
+                <div><span>Net P&L</span><strong>$18,420</strong></div>
+                <div><span>Max DD</span><strong>4.8%</strong></div>
+                <div><span>Win rate</span><strong>61%</strong></div>
+                <div><span>Pass odds</span><strong>72%</strong></div>
+              </div>
+            </div>
+          </section>
+
+          <section class="code-strip" aria-label="Strategy code preview">
+            <div class="code-title">
+              <span>btc_breakout.py</span>
+              <small>draft</small>
+            </div>
+            <pre><code>from cryptopad import market, challenge
+
+bars = market.ohlcv("BTC-PERP", timeframe="5m", venue="binance")
+signal = bars.close.crosses_above(bars.high.rolling(36).max())
+risk = challenge.rules("CryptoFunded 100K").daily_loss_limit
+
+strategy.entry("long", when=signal, size=risk.position_size(0.35))
+strategy.exit("trail", atr=2.4, max_hold="8h")</code></pre>
+          </section>
+
+          <div class="shortcut-panel" aria-label="Keyboard shortcuts">
+            <div><span>Toggle file tree</span><kbd>Ctrl</kbd><em>+</em><kbd>B</kbd></div>
+            <div><span>Toggle editor</span><kbd>Ctrl</kbd><em>+</em><kbd>Alt</kbd><em>+</em><kbd>E</kbd></div>
+            <div><span>New strategy</span><kbd>Ctrl</kbd><em>+</em><kbd>Alt</kbd><em>+</em><kbd>N</kbd></div>
+            <div><span>New agent chat</span><kbd>Ctrl</kbd><em>+</em><kbd>Shift</kbd><em>+</em><kbd>L</kbd></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="agent-panel" aria-label="AI strategy agent">
+        <header class="chat-header">
+          <div>
+            <h2>BTC prop-challenge scout</h2>
+            <span>Claude Opus 4.8 - crypto research agent</span>
+          </div>
+          <div class="chat-actions">
+            <button class="icon-button" aria-label="New chat">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14" /></svg>
+            </button>
+            <button class="icon-button" aria-label="Chat history">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 7v5l3 2" /><circle cx="12" cy="12" r="9" /></svg>
+            </button>
+          </div>
+        </header>
+
+        <div class="chat-thread">
+          <div class="prompt-card">
+            Pull BTC perpetuals across Binance, Bybit, and Coinbase. Build a 5m breakout strategy, then test whether it survives a 100K crypto prop challenge with a 5% daily loss rule and 10% target.
+          </div>
+
+          <p class="assistant-line">I'll check liquidity, funding, session volatility, and the challenge constraints before drafting the strategy.</p>
+
+          <div class="tool-card">
+            <div class="tool-head">
+              <span class="spinner" aria-hidden="true"></span>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" /><path d="M3 12h18M12 3a15 15 0 0 1 0 18M12 3a15 15 0 0 0 0 18" /></svg>
+              <strong>Searching market context</strong>
+              <button aria-label="Collapse search">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg>
+              </button>
+            </div>
+            <div class="search-field">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7" /><path d="m16 16 4 4" /></svg>
+              <span>BTC perp funding volatility order book regime</span>
+            </div>
+            <small>Queued: Binance funding, Bybit open interest, Coinbase spot lead-lag...</small>
+          </div>
+
+          <div class="result-card">
+            <div>
+              <span class="status-dot"></span>
+              <strong>Backtest scaffold ready</strong>
+            </div>
+            <p>Next step will wire live/historical candles, fees, slippage, and challenge rules into this panel.</p>
+          </div>
+        </div>
+
+        <form class="composer">
+          <label for="agentPrompt" class="sr-only">Ask agent</label>
+          <textarea id="agentPrompt" rows="2" placeholder="Ask CryptoPad to edit, run, or explain..."></textarea>
+          <div class="composer-bottom">
+            <button type="button" class="model-select">AI Claude Opus 4.8</button>
+            <div class="composer-actions">
+              <button type="button" class="icon-button" aria-label="Attach file">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.5 12 21a6 6 0 0 1-8.5-8.5l9.4-9a4 4 0 0 1 5.6 5.7l-9.3 8.9a2 2 0 1 1-2.8-2.8l8.6-8.2" /></svg>
+              </button>
+              <button type="button" class="send-button" aria-label="Send prompt">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7" /></svg>
+              </button>
+            </div>
+          </div>
+        </form>
+      </section>
+    </main>
+
+    <script src="./crypto-quant-workspace.js"></script>
+  </body>
+</html>
