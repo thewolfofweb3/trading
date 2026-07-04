@@ -11,7 +11,7 @@
       <aside class="workspace-rail">
         <header class="rail-header">WORKSPACE</header>
         <nav class="file-list" aria-label="Workspace files">
-          <button class="file-row" type="button">
+          <button class="file-row active" type="button">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h9l5 5v11H5z" /><path d="M14 4v5h5" /></svg>
             <span>README.md</span>
           </button>
@@ -31,43 +31,64 @@
       </aside>
 
       <section class="canvas" aria-label="Command workspace">
-        <div class="canvas-placeholder">
-          <div class="mark" aria-hidden="true">
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
+        <header class="editor-strip" aria-label="Editor controls">
+          <div class="editor-tab">
+            <span class="tab-dot" aria-hidden="true"></span>
+            <span>untitled_strategy.py</span>
+            <button type="button" aria-label="Close file">&times;</button>
           </div>
-          <div class="shortcuts" aria-label="Keyboard shortcuts">
-            <div>
-              <span>Toggle file tree</span>
-              <kbd>Ctrl</kbd>
-              <em>+</em>
-              <kbd>B</kbd>
+          <button class="run-button" type="button">Run</button>
+        </header>
+
+        <div class="editor-surface">
+          <ol class="line-gutter" aria-hidden="true">
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>4</li>
+            <li>5</li>
+            <li>6</li>
+            <li>7</li>
+            <li>8</li>
+          </ol>
+          <div class="canvas-placeholder">
+            <div class="mark" aria-hidden="true">
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
             </div>
-            <div>
-              <span>Toggle editor</span>
-              <kbd>Ctrl</kbd>
-              <em>+</em>
-              <kbd>Alt</kbd>
-              <em>+</em>
-              <kbd>E</kbd>
-            </div>
-            <div>
-              <span>New file</span>
-              <kbd>Ctrl</kbd>
-              <em>+</em>
-              <kbd>Alt</kbd>
-              <em>+</em>
-              <kbd>N</kbd>
-            </div>
-            <div>
-              <span>New chat</span>
-              <kbd>Ctrl</kbd>
-              <em>+</em>
-              <kbd>Shift</kbd>
-              <em>+</em>
-              <kbd>L</kbd>
+            <div class="shortcuts" aria-label="Keyboard shortcuts">
+              <div>
+                <span>Toggle file tree</span>
+                <kbd>Ctrl</kbd>
+                <em>+</em>
+                <kbd>B</kbd>
+              </div>
+              <div>
+                <span>Toggle editor</span>
+                <kbd>Ctrl</kbd>
+                <em>+</em>
+                <kbd>Alt</kbd>
+                <em>+</em>
+                <kbd>E</kbd>
+              </div>
+              <div>
+                <span>New file</span>
+                <kbd>Ctrl</kbd>
+                <em>+</em>
+                <kbd>Alt</kbd>
+                <em>+</em>
+                <kbd>N</kbd>
+              </div>
+              <div>
+                <span>New chat</span>
+                <kbd>Ctrl</kbd>
+                <em>+</em>
+                <kbd>Shift</kbd>
+                <em>+</em>
+                <kbd>L</kbd>
+              </div>
             </div>
           </div>
         </div>
@@ -86,7 +107,9 @@
           </div>
         </header>
 
-        <div class="chat-empty" aria-label="Empty chat"></div>
+        <div class="chat-empty" aria-label="Empty chat">
+          <span>No research thread yet</span>
+        </div>
 
         <form class="composer" aria-label="AI command composer">
           <label class="sr-only" for="prompt">Command</label>

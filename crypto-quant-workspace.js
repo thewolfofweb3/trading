@@ -11,6 +11,7 @@ composer.addEventListener("submit", (event) => {
   const bubble = document.createElement("div");
   bubble.className = "user-message";
   bubble.textContent = message;
+  chatEmpty.classList.add("has-thread");
   chatEmpty.appendChild(bubble);
   textarea.value = "";
 });

@@ -3,6 +3,7 @@
   --bg: #000;
   --panel: #080808;
   --panel-lift: #0b0b0c;
+  --panel-raised: #111112;
   --line: rgba(255, 255, 255, 0.08);
   --line-soft: rgba(255, 255, 255, 0.055);
   --text: #d7d7da;
@@ -94,6 +95,7 @@ svg {
 }
 
 .file-row {
+  position: relative;
   width: 100%;
   height: 28px;
   display: flex;
@@ -108,6 +110,20 @@ svg {
   font-size: 13px;
   font-weight: 500;
   text-align: left;
+}
+
+.file-row.active::before {
+  content: "";
+  position: absolute;
+  left: -7px;
+  width: 2px;
+  height: 14px;
+  background: rgba(159, 183, 201, .55);
+}
+
+.file-row span {
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  font-size: 12px;
 }
 
 .file-row + .file-row {
@@ -128,10 +144,87 @@ svg {
 }
 
 .canvas {
-  position: relative;
+  display: grid;
+  grid-template-rows: 36px minmax(0, 1fr);
   border-right: 1px solid var(--line);
   background: #000;
   overflow: hidden;
+}
+
+.editor-strip {
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--line-soft);
+  background: #050505;
+  padding: 0 9px 0 0;
+}
+
+.editor-tab {
+  height: 100%;
+  min-width: 172px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border-right: 1px solid var(--line-soft);
+  padding: 0 10px 0 12px;
+  color: #8d8d92;
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  font-size: 12px;
+}
+
+.tab-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(159, 183, 201, .45);
+}
+
+.editor-tab button {
+  border: 0;
+  margin-left: auto;
+  padding: 0;
+  background: transparent;
+  color: #55555a;
+  cursor: pointer;
+  font-size: 14px;
+  line-height: 1;
+}
+
+.run-button {
+  height: 23px;
+  border: 1px solid var(--line-soft);
+  border-radius: 3px;
+  padding: 0 10px;
+  background: #0d0d0e;
+  color: #8b8b90;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.editor-surface {
+  position: relative;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.line-gutter {
+  position: absolute;
+  top: 16px;
+  bottom: 0;
+  left: 0;
+  width: 42px;
+  margin: 0;
+  padding: 0 11px 0 0;
+  border-right: 1px solid rgba(255, 255, 255, .035);
+  color: rgba(116, 116, 120, .38);
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  font-size: 12px;
+  line-height: 22px;
+  list-style: none;
+  text-align: right;
 }
 
 .canvas-placeholder {
@@ -265,10 +358,24 @@ kbd {
 }
 
 .chat-empty {
+  position: relative;
   min-height: 0;
   padding: 14px;
   overflow-y: auto;
   border-bottom: 1px solid var(--line);
+}
+
+.chat-empty > span {
+  position: absolute;
+  top: 18px;
+  left: 18px;
+  color: rgba(116, 116, 120, .55);
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  font-size: 11px;
+}
+
+.chat-empty.has-thread > span {
+  display: none;
 }
 
 .user-message {
@@ -291,7 +398,7 @@ kbd {
   margin: 10px 12px 12px;
   border: 1px solid var(--line);
   border-radius: 10px;
-  background: #111112;
+  background: var(--panel-raised);
   height: 108px;
   overflow: hidden;
 }
