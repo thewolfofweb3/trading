@@ -1,9 +1,10 @@
 :root {
   color-scheme: dark;
   --bg: #000;
-  --panel: #070707;
-  --line: #202024;
-  --line-soft: #151518;
+  --panel: #080808;
+  --panel-lift: #0b0b0c;
+  --line: rgba(255, 255, 255, 0.08);
+  --line-soft: rgba(255, 255, 255, 0.055);
   --text: #d7d7da;
   --muted: #747478;
   --key: #111113;
@@ -18,8 +19,9 @@
 html,
 body {
   width: 100%;
-  min-height: 100%;
+  height: 100%;
   margin: 0;
+  overflow: hidden;
   background: var(--bg);
   color: var(--text);
   font-family: var(--font);
@@ -46,24 +48,28 @@ svg {
 
 .app-shell {
   width: 100vw;
-  min-height: 100vh;
+  height: 100vh;
+  height: 100dvh;
   display: grid;
-  grid-template-columns: 344px minmax(360px, 1fr) minmax(430px, 47vw);
+  grid-template-columns: clamp(220px, 18vw, 340px) minmax(0, 1fr) clamp(320px, 30vw, 500px);
   overflow: hidden;
   background: var(--bg);
   border: 1px solid var(--line);
-  border-radius: 2px;
+  border-radius: 12px;
 }
 
 .workspace-rail,
 .canvas,
 .chat-panel {
-  min-height: 100vh;
+  min-height: 0;
+  height: 100%;
   background: var(--panel);
 }
 
 .workspace-rail {
   border-right: 1px solid var(--line);
+  background: var(--panel-lift);
+  overflow: hidden;
 }
 
 .rail-header,
@@ -83,7 +89,8 @@ svg {
 }
 
 .file-list {
-  padding: 14px 16px;
+  padding: 12px 14px;
+  overflow: auto;
 }
 
 .file-row {
@@ -91,7 +98,7 @@ svg {
   height: 28px;
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 9px;
   border: 0;
   border-radius: 2px;
   padding: 0 4px;
@@ -104,7 +111,7 @@ svg {
 }
 
 .file-row + .file-row {
-  margin-top: 5px;
+  margin-top: 4px;
 }
 
 .file-row svg {
@@ -115,7 +122,7 @@ svg {
 
 .file-row:hover,
 .file-row:focus-visible {
-  background: #0d0d0e;
+  background: rgba(255, 255, 255, 0.025);
   color: #c4c4c8;
   outline: 1px solid var(--line-soft);
 }
@@ -124,14 +131,15 @@ svg {
   position: relative;
   border-right: 1px solid var(--line);
   background: #000;
+  overflow: hidden;
 }
 
 .canvas-placeholder {
   position: absolute;
-  top: 30%;
+  top: 48%;
   left: 50%;
   width: min(280px, calc(100% - 40px));
-  transform: translateX(-50%);
+  transform: translate(-50%, -50%);
   display: grid;
   justify-items: center;
 }
@@ -141,7 +149,7 @@ svg {
   width: 78px;
   height: 76px;
   margin-bottom: 38px;
-  opacity: .44;
+  opacity: .34;
 }
 
 .mark span {
@@ -174,8 +182,8 @@ svg {
 
 .shortcuts {
   width: 250px;
-  color: #5f5f64;
-  font-size: 13px;
+  color: #55555a;
+  font-size: 12px;
   font-weight: 450;
 }
 
@@ -184,7 +192,7 @@ svg {
   grid-template-columns: 1fr auto auto auto auto auto;
   align-items: center;
   gap: 6px;
-  min-height: 29px;
+  min-height: 27px;
 }
 
 kbd {
@@ -207,8 +215,9 @@ kbd {
 
 .chat-panel {
   display: grid;
-  grid-template-rows: 58px 1fr auto;
-  background: #060606;
+  grid-template-rows: 60px minmax(0, 1fr) auto;
+  background: var(--panel-lift);
+  overflow: hidden;
 }
 
 .chat-header {
@@ -251,8 +260,8 @@ kbd {
 .icon-button:hover,
 .icon-button:focus-visible {
   color: #a8a8ad;
-  background: #101011;
-  outline: 1px solid #202024;
+  background: rgba(255, 255, 255, 0.035);
+  outline: 1px solid var(--line);
 }
 
 .chat-empty {
@@ -280,10 +289,11 @@ kbd {
 
 .composer {
   margin: 10px 12px 12px;
-  border: 1px solid #242428;
-  border-radius: 4px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
   background: #111112;
-  max-height: 120px;
+  height: 108px;
+  overflow: hidden;
 }
 
 textarea {
@@ -294,19 +304,19 @@ textarea {
   resize: none;
   border: 0;
   outline: 0;
-  padding: 14px 18px 5px;
+  padding: 15px 18px 4px;
   background: transparent;
   color: var(--text);
-  font-size: 15px;
+  font-size: 14px;
   line-height: 1.28;
 }
 
 textarea::placeholder {
-  color: #7e7e83;
+  color: #6d6d73;
 }
 
 .composer-footer {
-  min-height: 38px;
+  height: 40px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -326,7 +336,7 @@ textarea::placeholder {
   display: grid;
   place-items: center;
   border-radius: 4px;
-  background: #252528;
+  background: #242427;
   color: #a7a7ac;
 }
 
@@ -339,7 +349,7 @@ textarea::placeholder {
 .send-button:hover,
 .send-button:focus-visible {
   background: #2f2f33;
-  outline: 1px solid #3b3b40;
+  outline: 1px solid var(--line);
 }
 
 .sr-only {
@@ -354,54 +364,14 @@ textarea::placeholder {
   border: 0;
 }
 
-@media (max-width: 1100px) {
-  .app-shell {
-    grid-template-columns: 280px 1fr;
-  }
-
-  .chat-panel {
-    grid-column: 1 / -1;
-    min-height: 520px;
-    border-top: 1px solid var(--line);
-  }
-}
-
 @media (max-width: 720px) {
-  .app-shell {
-    display: block;
-    border-radius: 0;
-  }
-
-  .workspace-rail,
-  .canvas,
-  .chat-panel {
-    min-height: auto;
-    border-right: 0;
-  }
-
-  .workspace-rail {
-    border-bottom: 1px solid var(--line);
-  }
-
   .file-list {
     padding: 10px 12px;
-  }
-
-  .canvas {
-    min-height: 360px;
-  }
-
-  .canvas-placeholder {
-    top: 76px;
   }
 
   .shortcuts {
     width: min(250px, 100%);
     font-size: 12px;
-  }
-
-  .chat-panel {
-    min-height: 420px;
   }
 
   .chat-header h1 {
