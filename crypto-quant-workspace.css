@@ -145,10 +145,14 @@ svg {
 
 .canvas {
   display: grid;
-  grid-template-rows: 36px minmax(0, 1fr);
+  grid-template-rows: minmax(0, 1fr);
   border-right: 1px solid var(--line);
   background: #000;
   overflow: hidden;
+}
+
+.app-shell.active-strategy .canvas {
+  grid-template-rows: 36px minmax(0, 1fr);
 }
 
 .editor-strip {
@@ -159,6 +163,11 @@ svg {
   border-bottom: 1px solid var(--line-soft);
   background: #050505;
   padding: 0 9px 0 0;
+  display: none;
+}
+
+.app-shell.active-strategy .editor-strip {
+  display: flex;
 }
 
 .editor-tab {
@@ -225,6 +234,11 @@ svg {
   line-height: 22px;
   list-style: none;
   text-align: right;
+  display: none;
+}
+
+.app-shell.active-strategy .line-gutter {
+  display: block;
 }
 
 .canvas-placeholder {
@@ -363,19 +377,6 @@ kbd {
   padding: 14px;
   overflow-y: auto;
   border-bottom: 1px solid var(--line);
-}
-
-.chat-empty > span {
-  position: absolute;
-  top: 18px;
-  left: 18px;
-  color: rgba(116, 116, 120, .55);
-  font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
-  font-size: 11px;
-}
-
-.chat-empty.has-thread > span {
-  display: none;
 }
 
 .user-message {
