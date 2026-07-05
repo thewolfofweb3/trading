@@ -1,17 +1,3 @@
-const composer = document.querySelector(".composer");
-const textarea = document.querySelector("textarea");
-const chatEmpty = document.querySelector(".chat-empty");
+import { initApp } from "./src/app-state.js";
 
-composer.addEventListener("submit", (event) => {
-  event.preventDefault();
-
-  const message = textarea.value.trim();
-  if (!message) return;
-
-  const bubble = document.createElement("div");
-  bubble.className = "user-message";
-  bubble.textContent = message;
-  chatEmpty.classList.add("has-thread");
-  chatEmpty.appendChild(bubble);
-  textarea.value = "";
-});
+initApp();

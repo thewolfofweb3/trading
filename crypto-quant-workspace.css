@@ -216,7 +216,7 @@ svg {
 .editor-surface {
   position: relative;
   min-height: 0;
-  overflow: hidden;
+  overflow: auto;
 }
 
 .line-gutter {
@@ -249,6 +249,117 @@ svg {
   transform: translate(-50%, -50%);
   display: grid;
   justify-items: center;
+}
+
+.workspace-document {
+  min-height: 100%;
+  margin-left: 42px;
+  padding: 16px;
+  color: #c9c9ce;
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+}
+
+.strategy-spec-view,
+.backtest-view,
+.execution-guard {
+  border-top: 1px solid var(--line-soft);
+  padding: 14px 0;
+}
+
+.strategy-spec-view:first-child {
+  border-top: 0;
+  padding-top: 0;
+}
+
+.strategy-spec-view header,
+.backtest-view header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 10px;
+}
+
+.strategy-spec-view header span,
+.backtest-view header span,
+.execution-guard span {
+  color: #74747a;
+  font-size: 11px;
+  text-transform: uppercase;
+}
+
+.strategy-spec-view header strong,
+.backtest-view header strong {
+  color: #d4d4d8;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+pre {
+  margin: 0;
+  white-space: pre-wrap;
+  color: #b9b9be;
+  font-size: 12px;
+  line-height: 1.55;
+}
+
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  border: 1px solid var(--line-soft);
+}
+
+.metrics-grid div {
+  min-height: 54px;
+  padding: 9px 10px;
+  border-right: 1px solid var(--line-soft);
+  border-bottom: 1px solid var(--line-soft);
+}
+
+.metrics-grid div:nth-child(3n) {
+  border-right: 0;
+}
+
+.metrics-grid div:nth-last-child(-n + 3) {
+  border-bottom: 0;
+}
+
+.metrics-grid span {
+  display: block;
+  color: #67676d;
+  font-size: 11px;
+}
+
+.metrics-grid strong {
+  display: block;
+  margin-top: 7px;
+  color: #d7d7da;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.placeholder-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.placeholder-grid div {
+  min-height: 92px;
+  display: grid;
+  place-items: center;
+  border: 1px dashed rgba(255, 255, 255, .08);
+  color: #5f5f65;
+  font-size: 12px;
+}
+
+.warning,
+.execution-guard p {
+  margin: 10px 0 0;
+  color: #8a7d5a;
+  font-size: 12px;
+  line-height: 1.5;
 }
 
 .mark {
@@ -389,6 +500,19 @@ kbd {
   color: #d9d9dc;
   font-size: 13px;
   line-height: 1.4;
+}
+
+.ai-message {
+  max-width: 88%;
+  margin: 12px 0 0;
+  color: #c5c5ca;
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.run-button:disabled {
+  opacity: .45;
+  cursor: wait;
 }
 
 .user-message + .user-message {
