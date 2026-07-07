@@ -73,6 +73,14 @@ svg {
   overflow: hidden;
 }
 
+.app-shell.workspace-collapsed {
+  grid-template-columns: 0 minmax(0, 1fr) clamp(560px, 43vw, 680px);
+}
+
+.workspace-rail.collapsed {
+  border-right: 0;
+}
+
 .rail-header,
 .chat-header {
   height: 58px;
@@ -124,6 +132,31 @@ svg {
 .file-row span {
   font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
   font-size: 12px;
+}
+
+.strategy-row {
+  justify-content: space-between;
+}
+
+.status-badge {
+  border: 1px solid var(--line-soft);
+  border-radius: 3px;
+  padding: 1px 4px;
+  color: #77777d;
+  font-size: 10px;
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+}
+
+.status-badge.passed {
+  color: #8fb69d;
+}
+
+.status-badge.failed {
+  color: #b68f8f;
+}
+
+.status-badge.tested {
+  color: #a9a17b;
 }
 
 .file-row + .file-row {
@@ -309,6 +342,23 @@ pre {
   border: 1px solid var(--line-soft);
 }
 
+.workspace-actions {
+  display: flex;
+  gap: 8px;
+  border-top: 1px solid var(--line-soft);
+  padding: 12px 0;
+}
+
+.workspace-actions button {
+  height: 26px;
+  border: 1px solid var(--line-soft);
+  border-radius: 3px;
+  background: #0d0d0e;
+  color: #9a9aa0;
+  cursor: pointer;
+  font-size: 12px;
+}
+
 .metrics-grid div {
   min-height: 54px;
   padding: 9px 10px;
@@ -338,20 +388,43 @@ pre {
   font-weight: 500;
 }
 
-.placeholder-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
+.equity-chart {
+  height: 140px;
   margin-top: 12px;
+  border: 1px solid var(--line-soft);
+  padding: 10px;
 }
 
-.placeholder-grid div {
-  min-height: 92px;
-  display: grid;
-  place-items: center;
-  border: 1px dashed rgba(255, 255, 255, .08);
-  color: #5f5f65;
-  font-size: 12px;
+.equity-chart svg {
+  width: 100%;
+  height: 100%;
+}
+
+.equity-chart polyline {
+  fill: none;
+  stroke: #8fa4b6;
+  stroke-width: 2;
+}
+
+.trades-table {
+  width: 100%;
+  margin-top: 12px;
+  border-collapse: collapse;
+  color: #a9a9ae;
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  font-size: 11px;
+}
+
+.trades-table th,
+.trades-table td {
+  border: 1px solid var(--line-soft);
+  padding: 6px 8px;
+  text-align: left;
+}
+
+.trades-table th {
+  color: #73737a;
+  font-weight: 500;
 }
 
 .warning,
@@ -508,6 +581,38 @@ kbd {
   color: #c5c5ca;
   font-size: 13px;
   line-height: 1.45;
+}
+
+.tool-message {
+  margin-top: 12px;
+  border: 1px solid var(--line-soft);
+  border-radius: 4px;
+  padding: 10px 12px;
+  background: #101011;
+  color: #bdbdc2;
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.tool-message strong {
+  display: block;
+  margin-bottom: 5px;
+  color: #d2d2d6;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.tool-message p {
+  margin: 4px 0 0;
+}
+
+.tool-message.pass {
+  border-color: rgba(143, 182, 157, .28);
+}
+
+.tool-message.fail,
+.tool-message.error {
+  border-color: rgba(182, 143, 143, .28);
 }
 
 .run-button:disabled {

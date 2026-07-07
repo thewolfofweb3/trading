@@ -5,6 +5,6 @@
   "type": "module",
   "scripts": {
     "dev": "node server.mjs",
-    "check": "node --check server.mjs && node --check crypto-quant-workspace.js && node --check src/app-state.js && node --check src/strategy/schema.js && node --check src/backtest/engine.js && node --check src/data/mock-candles.js && node --check src/data/hyperliquid-adapter.js && node --check src/ai/strategy-generator.js"
+    "check": "node --check server.mjs && node --check crypto-quant-workspace.js && node --check src/app-state.js && node --check src/strategy/schema.js && node --check src/strategy/search.js && node --check src/backtest/engine.js && node --check src/data/mock-candles.js && node --check src/data/hyperliquid-adapter.js && node --check src/ai/strategy-generator.js"
   }
 }

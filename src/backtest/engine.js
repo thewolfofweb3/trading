@@ -1,6 +1,6 @@
 import { validateStrategySpec } from "../strategy/schema.js";
 
-export function runBacktest({ candles, strategySpec, startingEquity = 100000 }) {
+export function runBacktest({ candles, strategySpec, startingEquity = 100000, requirements = {} }) {
   const validation = validateStrategySpec(strategySpec);
   const warnings = [...validation.warnings];
   const errors = [...validation.errors];
@@ -99,6 +99,7 @@ export function runBacktest({ candles, strategySpec, startingEquity = 100000 }) 
     slippageBps,
     maxDailyLossBreached: dailyLossBreached,
     maxDrawdownLimit: strategySpec.maxDrawdown,
+    requirements,
   });
 
   return {
@@ -124,6 +125,7 @@ function emptyResult({ startingEquity, warnings, errors }) {
       slippageBps: 0,
       maxDailyLossBreached: false,
       maxDrawdownLimit: 0,
+      requirements: {},
     }),
     warnings,
     errors,
@@ -180,18 +182,34 @@ function closePosition({ position, candle, exit, feeBps, slippageBps, equity }) 
   };
 }
 
-function computeMetrics({ trades, equity, startingEquity, maxDrawdown, feeBps, slippageBps, maxDailyLossBreached, maxDrawdownLimit }) {
+function computeMetrics({ trades, equity, startingEquity, maxDrawdown, feeBps, slippageBps, maxDailyLossBreached, maxDrawdownLimit, requirements }) {
   const wins = trades.filter((trade) => trade.pnl > 0);
   const losses = trades.filter((trade) => trade.pnl < 0);
   const grossProfit = sum(wins.map((trade) => trade.pnl));
   const grossLoss = Math.abs(sum(losses.map((trade) => trade.pnl)));
   const profitFactor = grossLoss === 0 ? (grossProfit > 0 ? Infinity : 0) : grossProfit / grossLoss;
   const netPnl = equity - startingEquity;
-  const pass = !maxDailyLossBreached && maxDrawdown <= maxDrawdownLimit && trades.length >= 1;
+  const averageWin = wins.length ? average(wins.map((trade) => trade.pnl)) : 0;
+  const averageLoss = losses.length ? Math.abs(average(losses.map((trade) => trade.pnl))) : 0;
+  const winRate = trades.length ? wins.length / trades.length : 0;
+  const lossRate = trades.length ? losses.length / trades.length : 0;
+  const expectancy = trades.length ? average(trades.map((trade) => trade.pnl)) : 0;
+  const longestLosingStreak = computeLongestLosingStreak(trades);
+  const requirementChecks = {
+    minWinRate: requirements.minWinRate == null || winRate >= requirements.minWinRate,
+    maxDrawdown: requirements.maxDrawdown == null || maxDrawdown <= requirements.maxDrawdown,
+    minProfitFactor: requirements.minProfitFactor == null || profitFactor >= requirements.minProfitFactor,
+    minRiskReward: requirements.minRiskReward == null || (averageLoss ? averageWin / averageLoss : Infinity) >= requirements.minRiskReward,
+  };
+  const pass = !maxDailyLossBreached && maxDrawdown <= maxDrawdownLimit && trades.length >= 1 && Object.values(requirementChecks).every(Boolean);
 
   return {
     netPnl,
-    winRate: trades.length ? wins.length / trades.length : 0,
+    winRate,
+    lossRate,
+    averageWin,
+    averageLoss,
+    riskReward: averageLoss ? averageWin / averageLoss : Infinity,
     maxDrawdown,
     profitFactor,
     averageR: trades.length ? average(trades.map((trade) => trade.rMultiple)) : 0,
@@ -199,12 +217,29 @@ function computeMetrics({ trades, equity, startingEquity, maxDrawdown, feeBps, s
     slippageBps,
     feeBps,
     tradeCount: trades.length,
+    expectancy,
+    longestLosingStreak,
+    requirementChecks,
     propRules: {
       pass,
       maxDailyLossBreached,
       maxDrawdownBreached: maxDrawdown > maxDrawdownLimit,
     },
   };
+}
+
+function computeLongestLosingStreak(trades) {
+  let longest = 0;
+  let current = 0;
+  for (const trade of trades) {
+    if (trade.pnl < 0) {
+      current += 1;
+      longest = Math.max(longest, current);
+    } else {
+      current = 0;
+    }
+  }
+  return longest;
 }
 
 function computeAtr(candles, period) {
